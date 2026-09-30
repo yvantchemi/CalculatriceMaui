@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CalculatriceMaui.MainPage"
+             BackgroundColor="#1E1E2E"
+             Title="Calculatrice">
+
+    <ContentPage.Resources>
+        <!-- Styles réutilisables pour les boutons -->
+        <Style x:Key="BtnChiffre" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#313244" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="MinimumHeightRequest" Value="60" />
+        </Style>
+        <Style x:Key="BtnOperateur" TargetType="Button" BasedOn="{StaticResource BtnChiffre}">
+            <Setter Property="BackgroundColor" Value="#F5A524" />
+        </Style>
+        <Style x:Key="BtnFonction" TargetType="Button" BasedOn="{StaticResource BtnChiffre}">
+            <Setter Property="BackgroundColor" Value="#585B70" />
+        </Style>
+    </ContentPage.Resources>
+
+    <!-- LAYOUT 1 : ScrollView (évite tout débordement sur petit écran ou en paysage) -->
+    <ScrollView>
+
+        <!-- LAYOUT 2 : Grid principale (en-tête / affichage / clavier) -->
+        <Grid RowDefinitions="Auto,Auto,*" Padding="16" RowSpacing="12">
+
+            <!-- LAYOUT 3 : HorizontalStackLayout (en-tête) -->
+            <HorizontalStackLayout Grid.Row="0" Spacing="8">
+                <Label Text="Calculatrice"
+                       FontSize="20" FontAttributes="Bold" TextColor="White" />
+                <Label Text="— TCHEMI Yvan Ulrick"
+                       FontSize="14" TextColor="#A6ADC8" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <!-- LAYOUT 4 : VerticalStackLayout (opération en cours au-dessus du résultat) -->
+            <VerticalStackLayout Grid.Row="1" Spacing="4" Padding="8">
+                <Label x:Name="LblOperation" Text=""
+                       FontSize="18" TextColor="#A6ADC8"
+                       HorizontalTextAlignment="End" LineBreakMode="HeadTruncation" />
+                <Label x:Name="LblResultat" Text="0"
+                       FontSize="48" TextColor="White"
+                       HorizontalTextAlignment="End" LineBreakMode="HeadTruncation" />
+            </VerticalStackLayout>
+
+            <!-- Grid du clavier : 5 lignes x 4 colonnes -->
+            <Grid Grid.Row="2"
+                  RowDefinitions="*,*,*,*,*"
+                  ColumnDefinitions="*,*,*,*"
+                  MinimumHeightRequest="380">
+
+                <Button Grid.Row="0" Grid.Column="0" Text="AC" Style="{StaticResource BtnFonction}" Clicked="OnAC" />
+                <Button Grid.Row="0" Grid.Column="1" Text="⌫" Style="{StaticResource BtnFonction}" Clicked="OnEffacer" />
+                <Button Grid.Row="0" Grid.Column="2" Text="%" Style="{StaticResource BtnFonction}" Clicked="OnPourcent" />
+                <Button Grid.Row="0" Grid.Column="3" Text="÷" Style="{StaticResource BtnOperateur}" Clicked="OnOperateur" />
+
+                <Button Grid.Row="1" Grid.Column="0" Text="7" Style="{StaticResource BtnChiffre}" Clicked="OnChiffre" />
+                <Button Grid.Row="1" Grid.Column="1" Text="8" Style="{StaticResource BtnChiffre}" Clicked="OnChiffre" />
+                <Button Grid.Row="1" Grid.Column="2" Text="9" Style="{StaticResource BtnChiffre}" Clicked="OnChiffre" />
+                <Button Grid.Row="1" Grid.Column="3" Text="×" Style="{StaticResource BtnOperateur}" Clicked="OnOperateur" />
+
+                <Button Grid.Row="2" Grid.Column="0" Text="4" Style="{StaticResource BtnChiffre}" Clicked="OnChiffre" />
+                <Button Grid.Row="2" Grid.Column="1" Text="5" Style="{StaticResource BtnChiffre}" Clicked="OnChiffre" />
+                <Button Grid.Row="2" Grid.Column="2" Text="6" Style="{StaticResource BtnChiffre}" Clicked="OnChiffre" />
+                <Button Grid.Row="2" Grid.Column="3" Text="−" Style="{StaticResource BtnOperateur}" Clicked="OnOperateur" />
+
+                <Button Grid.Row="3" Grid.Column="0" Text="1" Style="{StaticResource BtnChiffre}" Clicked="OnChiffre" />
+                <Button Grid.Row="3" Grid.Column="1" Text="2" Style="{StaticResource BtnChiffre}" Clicked="OnChiffre" />
+                <Button Grid.Row="3" Grid.Column="2" Text="3" Style="{StaticResource BtnChiffre}" Clicked="OnChiffre" />
+                <Button Grid.Row="3" Grid.Column="3" Text="+" Style="{StaticResource BtnOperateur}" Clicked="OnOperateur" />
+
+                <Button Grid.Row="4" Grid.Column="0" Text="±" Style="{StaticResource BtnFonction}" Clicked="OnSigne" />
+                <Button Grid.Row="4" Grid.Column="1" Text="0" Style="{StaticResource BtnChiffre}" Clicked="OnChiffre" />
+                <Button Grid.Row="4" Grid.Column="2" Text="." Style="{StaticResource BtnChiffre}" Clicked="OnVirgule" />
+                <Button Grid.Row="4" Grid.Column="3" Text="=" Style="{StaticResource BtnOperateur}" Clicked="OnEgal" />
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>
